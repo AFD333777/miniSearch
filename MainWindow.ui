@@ -10,8 +10,14 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>МиниПоисковик</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="labelLon">
@@ -62,11 +68,32 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>IBeamCursor</cursorShape>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
+    <property name="frame">
+     <bool>true</bool>
+    </property>
+    <property name="cursorPosition">
+     <number>0</number>
+    </property>
     <property name="placeholderText">
      <string>Введите долготу</string>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::LogicalMoveStyle</enum>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="lat">
@@ -77,6 +104,9 @@
       <width>113</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
     </property>
     <property name="placeholderText">
      <string>Введите широту</string>
@@ -91,6 +121,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
     <property name="placeholderText">
      <string>Введите масштаб</string>
     </property>
@@ -103,6 +136,9 @@
       <width>500</width>
       <height>450</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">border-style:outset;
