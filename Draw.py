@@ -15,8 +15,18 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
         self.requestsSystem = RequestsSystem()
         self.setFixedSize(800, 600)
         self.showMapbtn.clicked.connect(lambda: self.showMap())
+        self.RbtnGroup.buttonClicked.connect(self.changeViewMap)
         self.mapFile = "map.png"
         self.currentViewMap = "map"
+
+    def changeViewMap(self):
+        if self.RbtnGroup.sender().checkedButton() == self.schemeRBtn:
+            self.currentViewMap = "map"
+        elif self.RbtnGroup.sender().checkedButton() == self.satelliteRBtn:
+            self.currentViewMap = "sat"
+        elif self.RbtnGroup.sender().checkedButton() == self.hybridRBtn:
+            self.currentViewMap = "sat,skl"
+        self.showMap()
 
     def loadMap(self):
         with open(self.mapFile, "wb") as file:
