@@ -16,8 +16,20 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
         self.setFixedSize(800, 600)
         self.showMapbtn.clicked.connect(lambda: self.showMap())
         self.RbtnGroup.buttonClicked.connect(self.changeViewMap)
+        self.searchBtn.clicked.connect(self.showObject)
         self.mapFile = "map.png"
         self.currentViewMap = "map"
+
+    def showObject(self):
+        coords = self.requestsSystem.getObjectCoords(self.searchName.text())
+        if coords:
+            self.clearErrors()
+            self.lon.setText(str(coords[0]))
+            self.lat.setText(str(coords[1]))
+            self.scale.setText("14")
+            self.showMap(mark="pmwt")
+        else:
+            self.labelErrorData.setText("Ошибка запроса")
 
     def changeViewMap(self):
         if self.RbtnGroup.sender().checkedButton() == self.schemeRBtn:
@@ -52,8 +64,11 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
 
     def showMap(self, mark=""):
         # валидаторы
-        self.updateData()
-        if not (self.lon.text() and self.lat.text() and self.scale.text()) != "":
+        if mark != "":
+            self.updateData(mark)
+        else:
+            self.updateData()
+        if not (self.currentLon and self.currentLat and self.currentScale) != "":
             self.labelErrorData.setText("Введите данные")
         else:
             self.clearErrors()
