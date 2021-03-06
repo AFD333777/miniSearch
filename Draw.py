@@ -14,9 +14,10 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.requestsSystem = RequestsSystem()
         self.setFixedSize(800, 600)
-        self.showMapbtn.clicked.connect(lambda: self.showMap())
+        self.showMapbtn.clicked.connect(self.showMap)
         self.RbtnGroup.buttonClicked.connect(self.changeViewMap)
         self.searchBtn.clicked.connect(self.showObject)
+        self.currentMark = ""
         self.mapFile = "map.png"
         self.currentViewMap = "map"
 
@@ -27,7 +28,7 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
             self.lon.setText(str(coords[0]))
             self.lat.setText(str(coords[1]))
             self.scale.setText("14")
-            self.showMap(mark="pmwt")
+            self.showMap()
         else:
             self.labelErrorData.setText("Ошибка запроса")
 
@@ -52,22 +53,22 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
         self.pixmap = QPixmap(self.mapFile)
         self.photo.setPixmap(self.pixmap)
 
-    def updateData(self, mark=""):
+    def updateData(self):
         self.currentLon = self.lon.text()
         self.currentLat = self.lat.text()
         self.currentScale = self.scale.text()
-        self.currentMark = mark
 
     def clearErrors(self):
         self.labelErrorData.setText("")
         self.labelError.setText("")
 
-    def showMap(self, mark=""):
+    def showMap(self):
         # валидаторы
-        if mark != "":
-            self.updateData(mark)
-        else:
-            self.updateData()
+        if self.sender() == self.showMapbtn:
+            self.currentMark = ""
+        if self.sender() == self.searchBtn:
+            self.currentMark = "pmwt"
+        self.updateData()
         if not (self.currentLon and self.currentLat and self.currentScale) != "":
             self.labelErrorData.setText("Введите данные")
         else:
