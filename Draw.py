@@ -17,9 +17,17 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
         self.showMapbtn.clicked.connect(self.showMap)
         self.RbtnGroup.buttonClicked.connect(self.changeViewMap)
         self.searchBtn.clicked.connect(self.showObject)
+        self.resetBtn.clicked.connect(self.resetSearch)
         self.currentMark = ""
         self.mapFile = "map.png"
         self.currentViewMap = "map"
+
+    def resetSearch(self):
+        with open(self.mapFile, "w") as file:
+            pass
+        self.clearData()
+        self.pixmap = QPixmap(self.mapFile)
+        self.photo.setPixmap(self.pixmap)
 
     def showObject(self):
         coords = self.requestsSystem.getObjectCoords(self.searchName.text())
@@ -61,6 +69,12 @@ class MiniSearch(QMainWindow, Ui_MainWindow):
     def clearErrors(self):
         self.labelErrorData.setText("")
         self.labelError.setText("")
+
+    def clearData(self):
+        self.lon.setText("")
+        self.lat.setText("")
+        self.scale.setText("")
+        self.searchName.setText("")
 
     def showMap(self):
         # валидаторы
